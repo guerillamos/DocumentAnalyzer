@@ -51,15 +51,20 @@ Desktop.ini
 tilt_modules/
 
 # Certificates (if generated locally and not meant to be committed)
-# Adjust if your certs are handled differently
-# certificates/intermediateCA/private/
-# certificates/intermediateCA/newcerts/
-# certificates/intermediateCA/index.*
-# certificates/intermediateCA/serial*
-# certificates/rootCA/private/
-# certificates/rootCA/newcerts/
-# certificates/rootCA/index.*
-# certificates/rootCA/serial*
+# All certificate files are generated on the fly by generate-certs.ps1
+# IntermediateCA files
+certificates/intermediateCA/private/
+certificates/intermediateCA/newcerts/
+certificates/intermediateCA/index.*
+certificates/intermediateCA/serial*
+certificates/intermediateCA/certs/
+certificates/intermediateCA/csr/
+# RootCA files
+certificates/rootCA/private/
+certificates/rootCA/newcerts/
+certificates/rootCA/index.*
+certificates/rootCA/serial*
+certificates/rootCA/certs/
 
 # Local test files
 # test-document.txt

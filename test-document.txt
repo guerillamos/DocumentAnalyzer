@@ -1,4 +1,15 @@
 This is a test document for the Document Analyzer application.
 It contains some sample text for analysis.
+
+Microsoft Azure offers a wide range of cloud services for organizations.
+The Document Analyzer application uses Azure Functions and OpenAI for text processing.
+Dave Johnson from Seattle created this project in March 2025.
+
+Key features include:
+- Entity recognition
+- Topic extraction
+- Sentiment analysis
+- Document summarization
+
+The project costs approximately $200 per month and has shown a 35% improvement in processing speed.
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

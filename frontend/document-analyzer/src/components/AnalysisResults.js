@@ -22,10 +22,24 @@ const AnalysisResults = ({ results }) => {
     summary = '',
     sentiment = 'neutral'
   } = safeAnalysisResult;
-
   // Ensure topics and entities are always arrays
-  const topicsArray = Array.isArray(topics) ? topics : [];
-  const entitiesArray = Array.isArray(entities) ? entities : [];
+  let topicsArray = Array.isArray(topics) ? topics : [];
+  let entitiesArray = Array.isArray(entities) ? entities : [];
+  
+  // Additional handling for edge cases
+  if (topicsArray.length === 0 && typeof topics === 'string' && topics.trim() !== '') {
+    // If topics is a non-empty string, split it and use as array
+    topicsArray = topics.split(',').map(t => t.trim());
+  }
+  
+  if (entitiesArray.length === 0 && typeof entities === 'string' && entities.trim() !== '') {
+    // If entities is a non-empty string, split it and use as array
+    entitiesArray = entities.split(',').map(e => e.trim());
+  }
+  
+  // Ensure we log what's being rendered
+  console.log('AnalysisResults: topics=', topics, 'topicsArray=', topicsArray);
+  console.log('AnalysisResults: entities=', entities, 'entitiesArray=', entitiesArray);
 
   // Helper function to get sentiment class
   const getSentimentClass = (sentiment) => {

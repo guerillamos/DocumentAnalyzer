@@ -37,7 +37,14 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ]
-  },
-  "proxy": "http://localhost:7071"
+    ]  },  
+  "proxy": "http://localhost:7071",  
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!(axios|@azure/msal-browser|@azure/msal-react)/)"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|sass|scss)$": "<rootDir>/src/__mocks__/styleMock.js"
+    }
+  }
 }

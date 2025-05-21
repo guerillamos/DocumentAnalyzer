@@ -33,23 +33,15 @@ class TestAnalysisFunction(unittest.TestCase):
             url='/api/analyzeDocument',
             route_params={}
         )
-        
-        # Mock the Cosmos DB output binding
-        output_document = MagicMock()
-        
-        # Act
-        response = main(req, output_document)
+          # Act
+        response = main(req)
         response_body = json.loads(response.get_body())
-        
-        # Assert
+          # Assert
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response_body['status'], 'success')
         self.assertTrue('id' in response_body)
         self.assertTrue('analysisResult' in response_body)
         self.assertEqual(response_body['analysisResult']['sentiment'], 'positive')
-        
-        # Verify Cosmos DB document was created
-        output_document.set.assert_called_once()
 
     @patch('AnalysisFunction.process_with_azure_openai')
     def test_document_analysis_missing_content(self, mock_process_openai):
@@ -65,17 +57,13 @@ class TestAnalysisFunction(unittest.TestCase):
             url='/api/analyzeDocument',
             route_params={}
         )
-        
-        output_document = MagicMock()
-        
-        # Act
-        response = main(req, output_document)
+          # Act
+        response = main(req)
         response_body = json.loads(response.get_body())
         
         # Assert
         self.assertEqual(response.status_code, 400)
         self.assertTrue('error' in response_body)
-        self.assertFalse(output_document.set.called)
 
     @patch('AnalysisFunction.process_with_azure_openai')
     def test_document_analysis_openai_error(self, mock_process_openai):
@@ -93,17 +81,13 @@ class TestAnalysisFunction(unittest.TestCase):
             url='/api/analyzeDocument',
             route_params={}
         )
-        
-        output_document = MagicMock()
-        
-        # Act
-        response = main(req, output_document)
+          # Act
+        response = main(req)
         response_body = json.loads(response.get_body())
         
         # Assert
         self.assertEqual(response.status_code, 500)
         self.assertTrue('error' in response_body)
-        self.assertFalse(output_document.set.called)
 
 if __name__ == '__main__':
     unittest.main()

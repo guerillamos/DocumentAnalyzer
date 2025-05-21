@@ -6,8 +6,12 @@ from datetime import datetime
 import azure.functions as func
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 from openai import AzureOpenAI
-from ..SharedCode.json_helpers import flatten_nested_json, transform_json_response
-from ..SharedCode.retry_helpers import retry_with_exponential_backoff
+import sys
+import os
+# Fix relative imports by using absolute imports
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from SharedCode.json_helpers import flatten_nested_json, transform_json_response
+from SharedCode.retry_helpers import retry_with_exponential_backoff
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Document Analysis function processed a request.')
@@ -179,11 +183,21 @@ def generate_mock_response(document_content):
         sentiment = "positive"
     elif negative_count > positive_count:
         sentiment = "negative"
-    
-    # Extract potential entities (simple implementation for mock data)
+      # Extract potential entities (simple implementation for mock data)
     import re
     potential_entities = re.findall(r'\b[A-Z][a-z]+ [A-Z][a-z]+\b|\b[A-Z][a-z]+\b|\$\d+(?:\.\d+)?[KMB]?|\d+%', document_content)
     entities = list(set(potential_entities))[:5]  # Limit to 5 unique entities
+    
+    # Add default entities if none were found
+    if not entities:
+        # Extract any words of interest from the document
+        words_of_interest = re.findall(r'\b[a-zA-Z]{5,}\b', document_content)
+        if words_of_interest:
+            entities = [word.capitalize() for word in words_of_interest[:3]]
+        
+        # If still no entities, add defaults
+        if not entities:
+            entities = ["Document", "Content", "Analysis"]
     
     # Generate mock topics
     words = re.findall(r'\b[a-zA-Z]{4,}\b', document_content.lower())
@@ -195,12 +209,23 @@ def generate_mock_response(document_content):
     sorted_words = sorted(word_counts.items(), key=lambda x: x[1], reverse=True)
     topics = [word for word, _ in sorted_words[:3]]
     
-    # Construct the mock response
+    # Add default topics if none were found
+    if not topics:
+        # Try to extract meaningful words
+        meaningful_words = [word for word in words if len(word) > 3 and word not in ["this", "that", "with", "from", "have", "were"]]
+        if meaningful_words:
+            topics = meaningful_words[:3]
+        else:
+            topics = ["document", "analysis", "content"]
+      # Construct the mock response
     mock_response = {
         "topics": topics,
         "entities": entities,
         "summary": f"[MOCK ANALYSIS] {summary}",
         "sentiment": sentiment
     }
+    
+    # Log the generated mock response for debugging
+    logging.info(f"Generated mock response: topics={topics}, entities={entities}")
     
     return mock_response
