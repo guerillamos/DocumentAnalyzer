@@ -325,12 +325,11 @@ spec:
     return service_name_lower
 
 ###############################################################################
-# DREAMREALM-SCP APPLICATION DEPLOYMENT
+#APPLICATION DEPLOYMENT
 ###############################################################################
 # Create Kubernetes namespaces
 k8s_namespace("flux")
 k8s_namespace("traefik")
-k8s_namespace("dreamrealm-scp")
 k8s_namespace("document-analyzer")
 
 # Apply secrets
