@@ -1,0 +1,49 @@
+{
+  "version": "2.0",
+  "logging": {
+    "applicationInsights": {
+      "samplingSettings": {
+        "isEnabled": true,
+        "excludedTypes": "Request"
+      }
+    },
+    "logLevel": {
+      "default": "Information",
+      "Host.Results": "Information",
+      "Function": "Information"
+    }
+  },
+  "extensionBundle": {
+    "id": "Microsoft.Azure.Functions.ExtensionBundle",
+    "version": "[3.*, 4.0.0)"
+  },  "extensions": {
+    "http": {
+      "routePrefix": "api",
+      "maxOutstandingRequests": 200,
+      "maxConcurrentRequests": 100,
+      "dynamicThrottlesEnabled": true,
+      "cors": {
+        "allowedOrigins": [
+          "https://document-analyzer.localhost",
+          "https://document-analyzer-frontend.localhost",
+          "http://localhost:3000",
+          "https://document-analyzer-backend.localhost"
+        ],
+        "allowedMethods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allowedHeaders": ["*"],
+        "allowCredentials": true
+      }
+    },
+    "cosmosDB": {
+      "connectionMode": "Gateway",
+      "protocol": "Https"
+    }
+  },
+  "functionTimeout": "00:10:00",
+  "retry": {
+    "strategy": "exponentialBackoff",
+    "maxRetryCount": 5,
+    "minimumInterval": "00:00:01",
+    "maximumInterval": "00:01:00"
+  }
+}

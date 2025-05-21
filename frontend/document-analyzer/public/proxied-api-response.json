@@ -1,0 +1,10 @@
+{
+  "id": "mock-response-id",
+  "status": "success",
+  "analysisResult": {
+    "topics": ["sample topic 1", "sample topic 2", "fallback data"],
+    "entities": ["sample entity 1", "sample entity 2", "static response"],
+    "summary": "This is a sample summary from the static fallback file. If you're seeing this message, it means the application successfully used the fallback mechanism when the API call failed. The actual backend API is either unreachable or returning an invalid response format.",
+    "sentiment": "neutral"
+  }
+}

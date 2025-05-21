@@ -1,0 +1,20 @@
+# Azure Functions
+azure-functions>=1.14.0
+
+# Azure Services
+azure-identity>=1.12.0
+azure-cosmos>=4.3.1
+openai>=1.0.0
+
+# Utility packages
+pandas>=1.5.3
+pydantic>=2.3.0
+jsonpath-ng>=1.5.0
+python-dotenv>=1.0.0
+
+# Standard libraries that need to be explicitly mentioned for some environments
+uuid>=1.30.0
+
+# Testing
+pytest>=7.3.1
+pytest-mock>=3.10.0

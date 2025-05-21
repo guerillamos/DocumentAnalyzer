@@ -1,0 +1,14 @@
+{  "cors": {
+    "allowedOrigins": [
+      "https://document-analyzer.localhost",
+      "https://document-analyzer-frontend.localhost",
+      "http://document-analyzer.localhost",
+      "http://localhost:3000",
+      "https://document-analyzer-backend.localhost",
+      "*"
+    ],
+    "allowedMethods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    "allowedHeaders": ["*"],
+    "allowCredentials": true
+  }
+}
